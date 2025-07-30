@@ -9,23 +9,13 @@ dotenv.config(); // Load .env
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://skill-craft-frontend-gold.vercel.app",
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
+  origin: ['http://localhost:5173', 'https://skill-craft-frontend-iota.vercel.app'],
+  credentials: true
 }));
-
 app.use(express.json());
+
+const PORT = process.env.PORT || 5000;
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
@@ -37,7 +27,6 @@ app.use("/auth", authRoutes);
 app.use("/admin-career", adminCareerRoutes);
 app.use("/protected", protectedRoutes); // ✅ Correctly imported
 // Start Server
-const PORT = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
   res.send("✅ SkillCraft backend is running!");
