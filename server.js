@@ -1,0 +1,32 @@
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
+import authRoutes from "./routes/authRoutes.js";
+import adminCareerRoutes from "./routes/adminCareerRoutes.js";
+import protectedRoutes from "./routes/protectedRoutes.js"; // ✅ Fixed here
+dotenv.config(); // Load .env
+
+const app = express();
+
+// Middleware
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
+app.use(express.json());
+
+// MongoDB connection
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected successfully"))
+  .catch((err) => console.error("❌ MongoDB connection failed:", err));
+
+// Mount Routes
+app.use("/api/auth", authRoutes);
+app.use("/api/admin-career", adminCareerRoutes);
+app.use("/api/protected", protectedRoutes); // ✅ Correctly imported
+// Start Server
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+});
