@@ -10,7 +10,7 @@ dotenv.config(); // Load .env
 const app = express();
 
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://skill-craft-frontend-iota.vercel.app'],
+  origin: ['http://localhost:5173', 'https://skill-craft-frontend-phi.vercel.app'],
   credentials: true
 }));
 app.use(express.json());
