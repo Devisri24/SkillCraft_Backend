@@ -27,6 +27,11 @@ app.use("/api/admin-career", adminCareerRoutes);
 app.use("/api/protected", protectedRoutes); // ✅ Correctly imported
 // Start Server
 const PORT = process.env.PORT || 5000;
+
+app.get("/", (req, res) => {
+  res.send("✅ SkillCraft backend is running!");
+});
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
